@@ -48,6 +48,8 @@ namespace AvatarScalingUtilities
             {
                 Common.HandleEyeHeightChanged(player, avatarChanged, insideAction, insideLimit, insideA, insideB, insideCurve);
             }
+
+            avatarChanged = false;
         }
 
         public override void OnPlayerTriggerEnter(VRCPlayerApi player)

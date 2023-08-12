@@ -102,6 +102,8 @@ namespace AvatarScalingUtilities
                     Common.HandleEyeHeightChanged(player, avatarChanged, useStartAction, useStartLimit, useStartA, useStartB, useStartCurve);
                     break;
             }
+
+            avatarChanged = false;
         }
 
         public override void OnPickup()
