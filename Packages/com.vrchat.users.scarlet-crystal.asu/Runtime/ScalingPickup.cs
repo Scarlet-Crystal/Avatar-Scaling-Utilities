@@ -5,7 +5,7 @@ using VRC.SDK3.Components;
 
 namespace AvatarScalingUtilities
 {
-    [RequireComponent(typeof(VRC_Pickup))]
+    [RequireComponent(typeof(VRCPickup))]
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class ScalingPickup : UdonSharpBehaviour
     {

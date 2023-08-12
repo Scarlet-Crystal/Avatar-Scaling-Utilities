@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEditor;
-using VRC.SDKBase;
+using VRC.SDK3.Components;
 
 namespace AvatarScalingUtilities
 {
@@ -25,11 +25,11 @@ namespace AvatarScalingUtilities
         {
             serializedObject.Update();
 
-            var pickup = (target as ScalingPickup).GetComponent<VRC_Pickup>();
+            var pickup = (target as ScalingPickup).GetComponent<VRCPickup>();
 
-            bool showUseOptions = pickup.AutoHold == VRC_Pickup.AutoHoldMode.AutoDetect;
-            showUseOptions = showUseOptions && pickup.orientation != VRC_Pickup.PickupOrientation.Any;
-            showUseOptions = showUseOptions || pickup.AutoHold == VRC_Pickup.AutoHoldMode.Yes;
+            bool showUseOptions = pickup.AutoHold == VRCPickup.AutoHoldMode.AutoDetect;
+            showUseOptions = showUseOptions && pickup.orientation != VRCPickup.PickupOrientation.Any;
+            showUseOptions = showUseOptions || pickup.AutoHold == VRCPickup.AutoHoldMode.Yes;
 
             if (showUseOptions)
             {
