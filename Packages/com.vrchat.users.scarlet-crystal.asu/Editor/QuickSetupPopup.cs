@@ -10,12 +10,12 @@ namespace AvatarScalingUtilities
     {
         private float baseEyeHeight = 1.5f, walkSpeed = 2f, strafeSpeed = 2f, runSpeed = 4f, jumpImpulse = 3f, voiceRange = 25f;
         private readonly float popupWidth;
-        private readonly RelativeSpeedAndVoice setupTarget;
+        private readonly SerializedObject setupTarget;
 
-        public QuickSetupPopup(RelativeSpeedAndVoice target, float popupWidth)
+        public QuickSetupPopup(SerializedObject setupTarget, float popupWidth)
         {
             this.popupWidth = popupWidth;
-            this.setupTarget = target;
+            this.setupTarget = setupTarget;
         }
 
         public override void OnGUI(Rect _)
@@ -30,16 +30,16 @@ namespace AvatarScalingUtilities
             EditorGUILayout.Space();
             if (GUILayout.Button("Apply"))
             {
-                var so = new SerializedObject(setupTarget);
+                setupTarget.Update();
 
-                SetupCurve(so.FindProperty("walkCurve"), walkSpeed, baseEyeHeight);
-                SetupCurve(so.FindProperty("strafeCurve"), strafeSpeed, baseEyeHeight);
-                SetupCurve(so.FindProperty("runCurve"), runSpeed, baseEyeHeight);
-                SetupCurve(so.FindProperty("jumpImpulseCurve"), jumpImpulse, baseEyeHeight);
-                SetupCurve(so.FindProperty("gravityCurve"), 1f, baseEyeHeight);
-                SetupCurve(so.FindProperty("voiceRangeCurve"), voiceRange, baseEyeHeight);
+                SetupCurve(setupTarget.FindProperty("walkCurve"), walkSpeed, baseEyeHeight);
+                SetupCurve(setupTarget.FindProperty("strafeCurve"), strafeSpeed, baseEyeHeight);
+                SetupCurve(setupTarget.FindProperty("runCurve"), runSpeed, baseEyeHeight);
+                SetupCurve(setupTarget.FindProperty("jumpImpulseCurve"), jumpImpulse, baseEyeHeight);
+                SetupCurve(setupTarget.FindProperty("gravityCurve"), 1f, baseEyeHeight);
+                SetupCurve(setupTarget.FindProperty("voiceRangeCurve"), voiceRange, baseEyeHeight);
 
-                so.ApplyModifiedProperties();
+                setupTarget.ApplyModifiedProperties();
                 editorWindow.Close();
             }
         }

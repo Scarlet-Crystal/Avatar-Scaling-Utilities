@@ -7,6 +7,7 @@ using UnityEditor;
 namespace AvatarScalingUtilities
 {
     [CustomEditor(typeof(ScalingZone))]
+    [CanEditMultipleObjects]
     class ScalingZoneEditor : Editor
     {
         private ActionSettings insideAction, leaveAction;
@@ -15,6 +16,15 @@ namespace AvatarScalingUtilities
         {
             insideAction = new ActionSettings(serializedObject, "inside");
             leaveAction = new ActionSettings(serializedObject, "leave");
+
+            // Aug 12, 2023, Unity 2019.4.31f1 - Undo doesn't seem to properly invalidate
+            //  the serializedObject's different cache for enum fields.
+            Undo.undoRedoPerformed += serializedObject.SetIsDifferentCacheDirty;
+        }
+
+        void OnDisable()
+        {
+            Undo.undoRedoPerformed -= serializedObject.SetIsDifferentCacheDirty;
         }
 
         public override void OnInspectorGUI()

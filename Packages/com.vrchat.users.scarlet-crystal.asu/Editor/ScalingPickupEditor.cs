@@ -5,6 +5,7 @@ using VRC.SDK3.Components;
 namespace AvatarScalingUtilities
 {
     [CustomEditor(typeof(ScalingPickup))]
+    [CanEditMultipleObjects]
     class ScalingPickupEditor : Editor
     {
         private ActionSettings grab, useStart, useEnd, drop;
@@ -19,26 +20,20 @@ namespace AvatarScalingUtilities
 
             respawnOnUse = serializedObject.FindProperty("respawnOnUse");
             respawnOnDrop = serializedObject.FindProperty("respawnOnDrop");
+
+            // Aug 12, 2023, Unity 2019.4.31f1 - Undo doesn't seem to properly invalidate
+            //  the serializedObject's different cache for enum fields.
+            Undo.undoRedoPerformed += serializedObject.SetIsDifferentCacheDirty;
+        }
+
+        void OnDisable()
+        {
+            Undo.undoRedoPerformed -= serializedObject.SetIsDifferentCacheDirty;
         }
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-
-            var pickup = (target as ScalingPickup).GetComponent<VRCPickup>();
-
-            bool showUseOptions = pickup.AutoHold == VRCPickup.AutoHoldMode.AutoDetect;
-            showUseOptions = showUseOptions && pickup.orientation != VRCPickup.PickupOrientation.Any;
-            showUseOptions = showUseOptions || pickup.AutoHold == VRCPickup.AutoHoldMode.Yes;
-
-            if (showUseOptions)
-            {
-                EditorGUILayout.PropertyField(respawnOnUse);
-            }
-            else
-            {
-                EditorGUILayout.HelpBox("Enable autohold on the attached VRC Pickup script to reveal additional options.", MessageType.Info);
-            }
 
             EditorGUILayout.PropertyField(respawnOnDrop);
 
@@ -48,20 +43,25 @@ namespace AvatarScalingUtilities
                 "Action to preform when the player grabs this pickup. If User Scaling Limit is set to Restrict"
                 + ", then this action is also performed when the player changes avatars while holding this pickup.");
 
-            if (showUseOptions)
-            {
-                EditorGUILayout.Space();
-                useStart.DisplayActionSettings(
-                    "Use Start Action",
-                    "Action to preform when the player starts using this pickup. If User Scaling Limit is set to Restrict"
-                    + ", then this action is also performed when the player changes avatars while using this pickup.");
-
-                EditorGUILayout.Space();
-                useEnd.DisplayActionSettings("Use End Action", "Action to preform when the player stops using this pickup.");
-            }
-
             EditorGUILayout.Space();
             drop.DisplayActionSettings("Drop Action", "Action to preform when the player drops this pickup.");
+
+            EditorGUILayout.Space();
+
+            EditorGUILayout.HelpBox(
+                "The use actions have no effect if autohold is disabled on the attached VRC Pickup component.",
+                MessageType.Info);
+
+            EditorGUILayout.PropertyField(respawnOnUse);
+
+            EditorGUILayout.Space();
+            useStart.DisplayActionSettings(
+                "Use Start Action",
+                "Action to preform when the player starts using this pickup. If User Scaling Limit is set to Restrict"
+                + ", then this action is also performed when the player changes avatars while using this pickup.");
+
+            EditorGUILayout.Space();
+            useEnd.DisplayActionSettings("Use End Action", "Action to preform when the player stops using this pickup.");
 
             serializedObject.ApplyModifiedProperties();
         }

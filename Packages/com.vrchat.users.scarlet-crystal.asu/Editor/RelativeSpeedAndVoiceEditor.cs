@@ -6,6 +6,7 @@ using UnityEditor;
 namespace AvatarScalingUtilities
 {
     [CustomEditor(typeof(RelativeSpeedAndVoice))]
+    [CanEditMultipleObjects]
     class RelativeSpeedAndVoiceEditor : Editor
     {
         SerializedProperty walkCurve, strafeCurve, runCurve, jumpImpulseCurve, gravityStrengthCurve, voiceRangeCurve;
@@ -28,7 +29,7 @@ namespace AvatarScalingUtilities
 
             if (EditorGUILayout.DropdownButton(new GUIContent("Quick Setup"), FocusType.Keyboard))
             {
-                var quickSetupPopup = new QuickSetupPopup(target as RelativeSpeedAndVoice, quickSetupRect.width);
+                var quickSetupPopup = new QuickSetupPopup(serializedObject, quickSetupRect.width);
                 PopupWindow.Show(quickSetupRect, quickSetupPopup);
             }
 
