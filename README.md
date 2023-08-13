@@ -2,6 +2,12 @@
 
 A collection of utilities for building VRChat world which interact with VRChat's avatar scaling system.
 
+## Installation Instructions
+
+1. To use this package, you will need the [VRChat Creator Companion](https://vcc.docs.vrchat.com)
+2. Go to https://scarlet-crystal.github.io/Avatar-Scaling-Utilities/ and click *Add to VCC.*
+3. Go to the projects tab, click *Manage Project* for the project you wish to install this package to, then add the *Avatar Scaling Utilities* package to your project.
+
 ## What this package contains
 
 ### Object Scale Driver
