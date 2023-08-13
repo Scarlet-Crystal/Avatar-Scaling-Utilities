@@ -8,7 +8,7 @@
     {
       "displayName" : "Example Scene",
       "description" : "An example scene which shows how to use the utilities this packages provides.",
-      "path" : "Samples/Example Scene"
+      "path" : "Samples~/Example Scene"
     }
   ],
   "vpmDependencies": {
