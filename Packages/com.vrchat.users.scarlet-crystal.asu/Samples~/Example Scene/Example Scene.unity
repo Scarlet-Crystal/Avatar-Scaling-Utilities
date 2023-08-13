@@ -3210,8 +3210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchedFromSDKPipeline: 0
   completedSDKPipeline: 0
-  blueprintId: wrld_c7ae7591-fb73-4eed-aa21-fb024b7686f2
-  contentType: 1
+  blueprintId: 
+  contentType: 0
   assetBundleUnityVersion: 
   fallbackStatus: 0
 --- !u!114 &1632036408
