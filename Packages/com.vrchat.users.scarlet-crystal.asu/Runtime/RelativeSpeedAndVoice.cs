@@ -9,40 +9,47 @@ namespace AvatarScalingUtilities
     public class RelativeSpeedAndVoice : UdonSharpBehaviour
     {
         [SerializeField]
-        private AnimationCurve walkCurve, runCurve, strafeCurve, jumpImpulseCurve, gravityCurve, voiceRangeCurve;
+        private AnimationCurve walkCurve, runCurve, strafeCurve, jumpImpulseCurve, gravityCurve;
 
-        private void ReconfigureLocomotion(float height, VRCPlayerApi localPlayer)
+        [SerializeField]
+        private AnimationCurve voiceFarCurve, voiceNearCurve, voiceVolumetricRadiusCurve, voiceGainCurve;
+
+        private void ReconfigureLocomotion(VRCPlayerApi localPlayer)
         {
-            localPlayer.SetWalkSpeed(walkCurve.Evaluate(height));
-            localPlayer.SetRunSpeed(runCurve.Evaluate(height));
-            localPlayer.SetStrafeSpeed(strafeCurve.Evaluate(height));
+            float eyeHeight = localPlayer.GetAvatarEyeHeightAsMeters();
+
+            localPlayer.SetWalkSpeed(walkCurve.Evaluate(eyeHeight));
+            localPlayer.SetRunSpeed(runCurve.Evaluate(eyeHeight));
+            localPlayer.SetStrafeSpeed(strafeCurve.Evaluate(eyeHeight));
 
             //https://feedback.vrchat.com/vrchat-udon-closed-alpha-bugs/p/1315-small-jump-impulse-and-gravity-strength-values-offsets-the-player-from-the
-            localPlayer.SetJumpImpulse (jumpImpulseCurve.Evaluate(height));
-            localPlayer.SetGravityStrength(gravityCurve.Evaluate(height));
+            localPlayer.SetJumpImpulse (jumpImpulseCurve.Evaluate(eyeHeight));
+            localPlayer.SetGravityStrength(gravityCurve.Evaluate(eyeHeight));
         }
 
-        private void ReconfigureVoice(float height, VRCPlayerApi remotePlayer)
+        private void ReconfigureVoice(VRCPlayerApi remotePlayer)
         {
-            remotePlayer.SetVoiceDistanceFar(voiceRangeCurve.Evaluate(height));
+            float eyeHeight = remotePlayer.GetAvatarEyeHeightAsMeters();
+
+            remotePlayer.SetVoiceDistanceFar(voiceFarCurve.Evaluate(eyeHeight));
+            remotePlayer.SetVoiceDistanceNear(voiceNearCurve.Evaluate(eyeHeight));
+            remotePlayer.SetVoiceGain(voiceGainCurve.Evaluate(eyeHeight));
 
             //Aug 3rd 2023 - Setting remote player's volumetric radius to a small non-zero value prevents VRChat's
             // spacializer from breaking for groups of 20cm players when they are near each other.
             // See https://feedback.vrchat.com/open-beta/p/1314-stereo-separation-for-positional-audio-is-not-corrected-with-scale
-            remotePlayer.SetVoiceVolumetricRadius(0.005f);
+            remotePlayer.SetVoiceVolumetricRadius(Mathf.Max(0.005f, voiceVolumetricRadiusCurve.Evaluate(eyeHeight)));
         }
 
         public override void OnAvatarEyeHeightChanged(VRCPlayerApi player, float oldEyeHeight)
         {
-            float newEyeHeight = player.GetAvatarEyeHeightAsMeters();
-
             if (player.isLocal)
             {
-                ReconfigureLocomotion(newEyeHeight, player);
+                ReconfigureLocomotion(player);
             }
             else
             {
-                ReconfigureVoice(newEyeHeight, player);
+                ReconfigureVoice(player);
             }
         }
     }

@@ -9,7 +9,8 @@ namespace AvatarScalingUtilities
     [CanEditMultipleObjects]
     class RelativeSpeedAndVoiceEditor : Editor
     {
-        SerializedProperty walkCurve, strafeCurve, runCurve, jumpImpulseCurve, gravityStrengthCurve, voiceRangeCurve;
+        SerializedProperty walkCurve, strafeCurve, runCurve, jumpImpulseCurve, gravityStrengthCurve;
+        SerializedProperty voiceFarCurve, voiceNearCurve, voiceVolumetricRadiusCurve, voiceGainCurve;
 
         private Rect quickSetupRect;
 
@@ -20,7 +21,11 @@ namespace AvatarScalingUtilities
             runCurve = serializedObject.FindProperty("runCurve");
             jumpImpulseCurve = serializedObject.FindProperty("jumpImpulseCurve");
             gravityStrengthCurve = serializedObject.FindProperty("gravityCurve");
-            voiceRangeCurve = serializedObject.FindProperty("voiceRangeCurve");
+
+            voiceFarCurve = serializedObject.FindProperty("voiceFarCurve");
+            voiceNearCurve = serializedObject.FindProperty("voiceNearCurve");
+            voiceVolumetricRadiusCurve = serializedObject.FindProperty("voiceVolumetricRadiusCurve");
+            voiceGainCurve = serializedObject.FindProperty("voiceGainCurve");
         }
 
         public override void OnInspectorGUI()
@@ -38,12 +43,24 @@ namespace AvatarScalingUtilities
                 quickSetupRect = GUILayoutUtility.GetLastRect();
             }
 
+            EditorGUILayout.LabelField("Locomotion");
+
+            EditorGUI.indentLevel++;
             DisplayField(walkCurve, "Walk Speed", "Maps the local player's eye height to the desired walk speed.");
             DisplayField(strafeCurve, "Strafe Speed", "Maps the local player's eye height to the desired strafe speed.");
             DisplayField(runCurve, "Run Speed", "Maps the local player's eye height to the desired run speed.");
             DisplayField(jumpImpulseCurve, "Jump Impulse", "Maps the local player's eye height to the desired jump impulse.");
             DisplayField(gravityStrengthCurve, "Gravity Strength", "Map the local player's eye height to the desired gravity strength.");
-            DisplayField(voiceRangeCurve, "Voice Range", "Maps the remote player's eye height to the desired voice range.");
+            EditorGUI.indentLevel--;
+
+            EditorGUILayout.LabelField("Voice");
+
+            EditorGUI.indentLevel++;
+            DisplayField(voiceFarCurve, "Far Range", "Maps the remote player's eye height to the desired voice far range.");
+            DisplayField(voiceNearCurve, "Near Range", "Maps the remote player's eye height to the desired voice near range.");
+            DisplayField(voiceVolumetricRadiusCurve, "Volumetric Radius", "Maps the remote player's eye height to the desired volumetic radius.");
+            DisplayField(voiceGainCurve, "Gain", "Maps the remote player's eye height to the desired voice gain.");
+            EditorGUI.indentLevel--;
 
             serializedObject.ApplyModifiedProperties();
         }
