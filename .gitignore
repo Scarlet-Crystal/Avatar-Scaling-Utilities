@@ -12,6 +12,7 @@
 
 #The contents of the assets folder are not needed for developing packages for the VRChat Package Manager.
 /[Aa]ssets/*
+!/Assets/.gitkeep
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 # !/[Aa]ssets/**/*.meta
