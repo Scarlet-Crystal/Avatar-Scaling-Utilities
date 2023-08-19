@@ -6,26 +6,10 @@ using VRC.Udon;
 namespace AvatarScalingUtilities
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
-    public class RelativeSpeedAndVoice : UdonSharpBehaviour
+    public class RelativeVoice : UdonSharpBehaviour
     {
         [SerializeField]
-        private AnimationCurve walkCurve, runCurve, strafeCurve, jumpImpulseCurve, gravityCurve;
-
-        [SerializeField]
         private AnimationCurve voiceFarCurve, voiceNearCurve, voiceVolumetricRadiusCurve, voiceGainCurve;
-
-        private void ReconfigureLocomotion(VRCPlayerApi localPlayer)
-        {
-            float eyeHeight = localPlayer.GetAvatarEyeHeightAsMeters();
-
-            localPlayer.SetWalkSpeed(walkCurve.Evaluate(eyeHeight));
-            localPlayer.SetRunSpeed(runCurve.Evaluate(eyeHeight));
-            localPlayer.SetStrafeSpeed(strafeCurve.Evaluate(eyeHeight));
-
-            //https://feedback.vrchat.com/vrchat-udon-closed-alpha-bugs/p/1315-small-jump-impulse-and-gravity-strength-values-offsets-the-player-from-the
-            localPlayer.SetJumpImpulse (jumpImpulseCurve.Evaluate(eyeHeight));
-            localPlayer.SetGravityStrength(gravityCurve.Evaluate(eyeHeight));
-        }
 
         private void ReconfigureVoice(VRCPlayerApi remotePlayer)
         {
@@ -43,13 +27,20 @@ namespace AvatarScalingUtilities
 
         public override void OnAvatarEyeHeightChanged(VRCPlayerApi player, float oldEyeHeight)
         {
-            if (player.isLocal)
+            ReconfigureVoice(player);
+        }
+
+        void OnEnable()
+        {
+            VRCPlayerApi[] players = new VRCPlayerApi[VRCPlayerApi.GetPlayerCount()];
+            VRCPlayerApi.GetPlayers(players);
+
+            foreach (VRCPlayerApi player in players)
             {
-                ReconfigureLocomotion(player);
-            }
-            else
-            {
-                ReconfigureVoice(player);
+                if (Utilities.IsValid(player))
+                {
+                    ReconfigureVoice(player);
+                }
             }
         }
     }

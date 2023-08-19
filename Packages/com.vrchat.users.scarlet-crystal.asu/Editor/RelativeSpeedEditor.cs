@@ -1,16 +1,15 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
 namespace AvatarScalingUtilities
 {
-    [CustomEditor(typeof(RelativeSpeedAndVoice))]
+    [CustomEditor(typeof(RelativeSpeed))]
     [CanEditMultipleObjects]
-    class RelativeSpeedAndVoiceEditor : Editor
+    class RelativeSpeedEditor : Editor
     {
         SerializedProperty walkCurve, strafeCurve, runCurve, jumpImpulseCurve, gravityStrengthCurve;
-        SerializedProperty voiceFarCurve, voiceNearCurve, voiceVolumetricRadiusCurve, voiceGainCurve;
 
         private Rect quickSetupRect;
 
@@ -21,11 +20,6 @@ namespace AvatarScalingUtilities
             runCurve = serializedObject.FindProperty("runCurve");
             jumpImpulseCurve = serializedObject.FindProperty("jumpImpulseCurve");
             gravityStrengthCurve = serializedObject.FindProperty("gravityCurve");
-
-            voiceFarCurve = serializedObject.FindProperty("voiceFarCurve");
-            voiceNearCurve = serializedObject.FindProperty("voiceNearCurve");
-            voiceVolumetricRadiusCurve = serializedObject.FindProperty("voiceVolumetricRadiusCurve");
-            voiceGainCurve = serializedObject.FindProperty("voiceGainCurve");
         }
 
         public override void OnInspectorGUI()
@@ -34,8 +28,45 @@ namespace AvatarScalingUtilities
 
             if (EditorGUILayout.DropdownButton(new GUIContent("Quick Setup"), FocusType.Keyboard))
             {
-                var quickSetupPopup = new QuickSetupPopup(serializedObject, quickSetupRect.width);
-                PopupWindow.Show(quickSetupRect, quickSetupPopup);
+                var popup = new ProportionalSetupPopup(
+                    serializedObject, quickSetupRect.width,
+                    
+                    new ProportionalSetupPopup.CurveProperty(
+                        "walkCurve",
+                        "Walk Speed",
+                        2f, false,
+                        "Walk speed for an avatar at the base eye height."
+                    ),
+                    
+                    new ProportionalSetupPopup.CurveProperty(
+                        "strafeCurve",
+                        "Strafe Speed",
+                        2f, false,
+                        "Strafe speed for an avatar at the base eye height."
+                    ),
+                    
+                    new ProportionalSetupPopup.CurveProperty(
+                        "runCurve",
+                        "Run Speed",
+                        4f, false,
+                        "Run speed for an avatar at the base eye height."
+                    ),
+                    
+                    new ProportionalSetupPopup.CurveProperty(
+                        "jumpImpulseCurve",
+                        "Jump Impulse",
+                        3f, false,
+                        "Jump impulse for an avatar at the base eye height."
+                    ),
+                    
+                    new ProportionalSetupPopup.CurveProperty(
+                        "gravityCurve",
+                        null,
+                        1f, false,
+                        null
+                    ));
+                    
+                PopupWindow.Show(quickSetupRect, popup);
             }
 
             if (Event.current.type == EventType.Repaint)
@@ -43,24 +74,11 @@ namespace AvatarScalingUtilities
                 quickSetupRect = GUILayoutUtility.GetLastRect();
             }
 
-            EditorGUILayout.LabelField("Locomotion");
-
-            EditorGUI.indentLevel++;
             DisplayField(walkCurve, "Walk Speed", "Maps the local player's eye height to the desired walk speed.");
             DisplayField(strafeCurve, "Strafe Speed", "Maps the local player's eye height to the desired strafe speed.");
             DisplayField(runCurve, "Run Speed", "Maps the local player's eye height to the desired run speed.");
             DisplayField(jumpImpulseCurve, "Jump Impulse", "Maps the local player's eye height to the desired jump impulse.");
             DisplayField(gravityStrengthCurve, "Gravity Strength", "Map the local player's eye height to the desired gravity strength.");
-            EditorGUI.indentLevel--;
-
-            EditorGUILayout.LabelField("Voice");
-
-            EditorGUI.indentLevel++;
-            DisplayField(voiceFarCurve, "Far Range", "Maps the remote player's eye height to the desired voice far range.");
-            DisplayField(voiceNearCurve, "Near Range", "Maps the remote player's eye height to the desired voice near range.");
-            DisplayField(voiceVolumetricRadiusCurve, "Volumetric Radius", "Maps the remote player's eye height to the desired volumetic radius.");
-            DisplayField(voiceGainCurve, "Gain", "Maps the remote player's eye height to the desired voice gain.");
-            EditorGUI.indentLevel--;
 
             serializedObject.ApplyModifiedProperties();
         }
