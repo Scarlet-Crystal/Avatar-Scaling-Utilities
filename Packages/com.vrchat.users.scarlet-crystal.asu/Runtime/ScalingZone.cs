@@ -39,29 +39,41 @@ namespace AvatarScalingUtilities
 
         public override void OnAvatarChanged(VRCPlayerApi player)
         {
-            avatarChanged = true;
+            if (player.isLocal)
+            {
+                avatarChanged = true;
+            }
         }
 
         public override void OnAvatarEyeHeightChanged(VRCPlayerApi player, float oldEyeHeight)
         {
-            if (isInsideTrigger)
+            if (player.isLocal)
             {
-                Common.HandleEyeHeightChanged(player, avatarChanged, insideAction, insideLimit, insideA, insideB, insideCurve);
-            }
+                if (isInsideTrigger)
+                {
+                    Common.HandleEyeHeightChanged(player, avatarChanged, insideAction, insideLimit, insideA, insideB, insideCurve);
+                }
 
-            avatarChanged = false;
+                avatarChanged = false;
+            }
         }
 
         public override void OnPlayerTriggerEnter(VRCPlayerApi player)
         {
-            isInsideTrigger = true;
-            Common.ExecuteAction(player, insideAction, insideLimit, insideA, insideB, insideCurve);
+            if (player.isLocal)
+            {
+                isInsideTrigger = true;
+                Common.ExecuteAction(player, insideAction, insideLimit, insideA, insideB, insideCurve);
+            }
         }
 
         public override void OnPlayerTriggerExit(VRCPlayerApi player)
         {
-            isInsideTrigger = false;
-            Common.ExecuteAction(player, leaveAction, leaveLimit, leaveA, leaveB, leaveCurve);
+            if (player.isLocal)
+            {
+                isInsideTrigger = false;
+                Common.ExecuteAction(player, leaveAction, leaveLimit, leaveA, leaveB, leaveCurve);
+            }
         }
     }
 }

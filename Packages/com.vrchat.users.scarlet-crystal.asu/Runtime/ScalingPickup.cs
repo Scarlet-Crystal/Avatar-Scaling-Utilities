@@ -84,26 +84,32 @@ namespace AvatarScalingUtilities
 
         public override void OnAvatarChanged(VRCPlayerApi player)
         {
-            avatarChanged = true;
+            if (player.isLocal)
+            {
+                avatarChanged = true;
+            }
         }
 
         public override void OnAvatarEyeHeightChanged(VRCPlayerApi player, float prevEyeHeightAsMeters)
         {
-            switch (pickupState)
+            if (player.isLocal)
             {
-                case PickupState.Released:
-                    break;
+                switch (pickupState)
+                {
+                    case PickupState.Released:
+                        break;
 
-                case PickupState.Held:
-                    Common.HandleEyeHeightChanged(player, avatarChanged, grabAction, grabLimit, grabA, grabB, grabCurve);
-                    break;
+                    case PickupState.Held:
+                        Common.HandleEyeHeightChanged(player, avatarChanged, grabAction, grabLimit, grabA, grabB, grabCurve);
+                        break;
 
-                case PickupState.Using:
-                    Common.HandleEyeHeightChanged(player, avatarChanged, useStartAction, useStartLimit, useStartA, useStartB, useStartCurve);
-                    break;
+                    case PickupState.Using:
+                        Common.HandleEyeHeightChanged(player, avatarChanged, useStartAction, useStartLimit, useStartA, useStartB, useStartCurve);
+                        break;
+                }
+
+                avatarChanged = false;
             }
-
-            avatarChanged = false;
         }
 
         public override void OnPickup()
