@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
-  m_Name: ScalingZone
+  m_Name: ScalingTrigger
   m_EditorClassIdentifier: 
   serializedUdonProgramAsset: {fileID: 11400000, guid: 322f29dd8738d294b9173502ea7557ce,
     type: 2}
@@ -21,7 +21,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 1
   hasInteractEvent: 0
-  scriptID: 3203839115344516026
+  scriptID: 4916312901180469794
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -50,13 +50,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: insideAction
+      Data: startAction
     - Name: $v
       Entry: 7
       Data: 2|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: insideAction
+      Data: startAction
     - Name: <UserType>k__BackingField
       Entry: 7
       Data: 3|System.RuntimeType, mscorlib
@@ -116,13 +116,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: insideLimit
+      Data: startLimit
     - Name: $v
       Entry: 7
       Data: 7|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: insideLimit
+      Data: startLimit
     - Name: <UserType>k__BackingField
       Entry: 7
       Data: 8|System.RuntimeType, mscorlib
@@ -176,13 +176,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: insideA
+      Data: startA
     - Name: $v
       Entry: 7
       Data: 11|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: insideA
+      Data: startA
     - Name: <UserType>k__BackingField
       Entry: 7
       Data: 12|System.RuntimeType, mscorlib
@@ -236,13 +236,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: insideB
+      Data: startB
     - Name: $v
       Entry: 7
       Data: 15|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: insideB
+      Data: startB
     - Name: <UserType>k__BackingField
       Entry: 9
       Data: 12
@@ -290,13 +290,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: insideCurve
+      Data: startCurve
     - Name: $v
       Entry: 7
       Data: 18|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: insideCurve
+      Data: startCurve
     - Name: <UserType>k__BackingField
       Entry: 7
       Data: 19|System.RuntimeType, mscorlib
@@ -350,13 +350,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: leaveAction
+      Data: stopAction
     - Name: $v
       Entry: 7
       Data: 22|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: leaveAction
+      Data: stopAction
     - Name: <UserType>k__BackingField
       Entry: 9
       Data: 3
@@ -404,13 +404,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: leaveLimit
+      Data: stopLimit
     - Name: $v
       Entry: 7
       Data: 25|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: leaveLimit
+      Data: stopLimit
     - Name: <UserType>k__BackingField
       Entry: 9
       Data: 8
@@ -458,13 +458,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: leaveA
+      Data: stopA
     - Name: $v
       Entry: 7
       Data: 28|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: leaveA
+      Data: stopA
     - Name: <UserType>k__BackingField
       Entry: 9
       Data: 12
@@ -512,13 +512,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: leaveB
+      Data: stopB
     - Name: $v
       Entry: 7
       Data: 31|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: leaveB
+      Data: stopB
     - Name: <UserType>k__BackingField
       Entry: 9
       Data: 12
@@ -566,13 +566,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: leaveCurve
+      Data: stopCurve
     - Name: $v
       Entry: 7
       Data: 34|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: leaveCurve
+      Data: stopCurve
     - Name: <UserType>k__BackingField
       Entry: 9
       Data: 19
@@ -620,13 +620,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: isInsideTrigger
+      Data: isGuarding
     - Name: $v
       Entry: 7
       Data: 37|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: isInsideTrigger
+      Data: isGuarding
     - Name: <UserType>k__BackingField
       Entry: 7
       Data: 38|System.RuntimeType, mscorlib
