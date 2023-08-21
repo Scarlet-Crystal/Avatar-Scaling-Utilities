@@ -19,7 +19,7 @@ namespace AvatarScalingUtilities
                     break;
 
                 case ScalingActions.LimitEyeHeight:
-                    e = filterEyeHeight(player.GetAvatarEyeHeightAsMeters(), minOrHeightOrMultiplier, max);
+                    e = FilterEyeHeight(player.GetAvatarEyeHeightAsMeters(), minOrHeightOrMultiplier, max);
                     player.SetAvatarEyeHeightByMeters(e);
                     break;
 
@@ -40,7 +40,7 @@ namespace AvatarScalingUtilities
 
                 case ScalingActions.RemapAndLimitEyeHeight:
                     e = curve.Evaluate(player.GetAvatarEyeHeightAsMeters());
-                    player.SetAvatarEyeHeightByMeters(filterEyeHeight(e, minOrHeightOrMultiplier, max));
+                    player.SetAvatarEyeHeightByMeters(FilterEyeHeight(e, minOrHeightOrMultiplier, max));
                     break;
             }
 
@@ -50,7 +50,7 @@ namespace AvatarScalingUtilities
                     break;
 
                 case ScalingLimits.Restrict:
-                    resetLimits(player);
+                    ResetLimits(player);
 
                     if (action == ScalingActions.LimitEyeHeight || action == ScalingActions.RemapAndLimitEyeHeight)
                     {
@@ -65,7 +65,7 @@ namespace AvatarScalingUtilities
                     break;
 
                 case ScalingLimits.Reset:
-                    resetLimits(player);
+                    ResetLimits(player);
                     break;
             }
         }
@@ -74,12 +74,12 @@ namespace AvatarScalingUtilities
         {
             if (limit == ScalingLimits.Restrict)
             {
-                ScalingActions sa = avatarChanged ? action : filterAction(action);
+                ScalingActions sa = avatarChanged ? action : FilterAction(action);
                 ExecuteAction(player, sa, ScalingLimits.Keep, minOrHeightOrMultiplier, max, curve);
             }
         }
 
-        private static ScalingActions filterAction(ScalingActions action)
+        private static ScalingActions FilterAction(ScalingActions action)
         {
             if (action == ScalingActions.RemapEyeHeight)
             {
@@ -94,14 +94,14 @@ namespace AvatarScalingUtilities
             return action;
         }
 
-        private static void resetLimits(VRCPlayerApi player)
+        private static void ResetLimits(VRCPlayerApi player)
         {
             player.SetManualAvatarScalingAllowed(true);
             player.SetAvatarEyeHeightMinimumByMeters(0f);
             player.SetAvatarEyeHeightMaximumByMeters(float.PositiveInfinity);
         }
 
-        private static float filterEyeHeight(float newEyeHeight, float min, float max)
+        private static float FilterEyeHeight(float newEyeHeight, float min, float max)
         {
             if (newEyeHeight < min - 0.001f || newEyeHeight > max + 0.001f)
             {
