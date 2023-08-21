@@ -29,31 +29,31 @@ namespace AvatarScalingUtilities
             {
                 var popup = new ProportionalSetupPopup(
                     serializedObject, quickSetupRect.width,
-                    
+
                     new ProportionalSetupPopup.CurveProperty(
-                        "voiceFarCurve", 
-                        "Voice Range", 
-                        25f, false, 
+                        "voiceFarCurve",
+                        "Voice Range",
+                        25f, false,
                         "Voice range for an avatar at the base eye height."),
-                        
+
                     new ProportionalSetupPopup.CurveProperty(
                         "voiceGainCurve",
                         "Voice Gain",
                         15f, true,
                         "Sets the voice gain irrespective of avatar height."
                     ),
-                    
+
                     new ProportionalSetupPopup.CurveProperty(
                         "voiceNearCurve",
                         null,
                         0f, true,
                         null
                     ),
-                    
+
                     new ProportionalSetupPopup.CurveProperty(
                         "voiceVolumetricRadiusCurve",
                         null,
-                        0.005f, true,
+                        0.005f, true, //Aug 3rd 2023 - Setting this to a small, nonzero value fixes this bug: https://feedback.vrchat.com/open-beta/p/1314-stereo-separation-for-positional-audio-is-not-corrected-with-scale
                         null
                     )
                 );
