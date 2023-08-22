@@ -10,10 +10,6 @@ namespace AvatarScalingUtilities
     public class ScalingPickup : UdonSharpBehaviour
     {
         [SerializeField]
-        private bool respawnOnUse, respawnOnDrop;
-
-
-        [SerializeField]
         private ScalingActions grabAction;
 
         [SerializeField]
@@ -66,21 +62,7 @@ namespace AvatarScalingUtilities
 
 
         private bool avatarChanged = false;
-        private Vector3 startPos;
-        private Quaternion startRot;
         private PickupState pickupState;
-        private VRC_Pickup vrcPickup;
-        private VRCObjectSync vrcObjectSync;
-        private new Rigidbody rigidbody;
-
-        void Start()
-        {
-            vrcPickup = GetComponent<VRC_Pickup>();
-            vrcObjectSync = GetComponent<VRCObjectSync>();
-            rigidbody = GetComponent<Rigidbody>();
-            startPos = transform.position;
-            startRot = transform.rotation;
-        }
 
         public override void OnAvatarChanged(VRCPlayerApi player)
         {
@@ -122,11 +104,6 @@ namespace AvatarScalingUtilities
         {
             pickupState = PickupState.Using;
             Common.ExecuteAction(Networking.LocalPlayer, useStartAction, useStartLimit, useStartA, useStartB, useStartCurve);
-
-            if (respawnOnUse)
-            {
-                RespawnPickup();
-            }
         }
 
         public override void OnPickupUseUp()
@@ -139,28 +116,6 @@ namespace AvatarScalingUtilities
         {
             pickupState = PickupState.Released;
             Common.ExecuteAction(Networking.LocalPlayer, dropAction, dropLimit, dropA, dropB, dropCurve);
-
-            if (respawnOnDrop)
-            {
-                RespawnPickup();
-            }
-        }
-
-        private void RespawnPickup()
-        {
-            vrcPickup.Drop();
-
-            if (vrcObjectSync != null && Networking.IsOwner(gameObject))
-            {
-                vrcObjectSync.Respawn();
-            }
-            else
-            {
-                rigidbody.position = startPos;
-                rigidbody.rotation = startRot;
-                rigidbody.velocity = Vector3.zero;
-                rigidbody.angularVelocity = Vector3.zero;
-            }
         }
     }
 

@@ -9,7 +9,6 @@ namespace AvatarScalingUtilities
     class ScalingPickupEditor : Editor
     {
         private ActionSettings grab, useStart, useEnd, drop;
-        private SerializedProperty respawnOnUse, respawnOnDrop;
 
         void OnEnable()
         {
@@ -17,9 +16,6 @@ namespace AvatarScalingUtilities
             useStart = new ActionSettings(serializedObject, "useStart");
             useEnd = new ActionSettings(serializedObject, "useEnd");
             drop = new ActionSettings(serializedObject, "drop");
-
-            respawnOnUse = serializedObject.FindProperty("respawnOnUse");
-            respawnOnDrop = serializedObject.FindProperty("respawnOnDrop");
 
             // Aug 12, 2023, Unity 2019.4.31f1 - Undo doesn't seem to properly invalidate
             //  the serializedObject's different cache for enum fields.
@@ -35,8 +31,6 @@ namespace AvatarScalingUtilities
         {
             serializedObject.Update();
 
-            EditorGUILayout.PropertyField(respawnOnDrop);
-
             EditorGUILayout.Space();
             grab.DisplayActionSettings(
                 "Pickup Action",
@@ -51,8 +45,6 @@ namespace AvatarScalingUtilities
             EditorGUILayout.HelpBox(
                 "The use actions have no effect if autohold is disabled on the attached VRC Pickup component.",
                 MessageType.Info);
-
-            EditorGUILayout.PropertyField(respawnOnUse);
 
             EditorGUILayout.Space();
             useStart.DisplayActionSettings(
