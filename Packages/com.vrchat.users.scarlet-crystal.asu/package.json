@@ -1,9 +1,9 @@
 {
   "name": "com.vrchat.users.scarlet-crystal.asu",
   "displayName": "Avatar Scaling Utilities",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A collection of utilities for building VRChat worlds which interact with VRChat's avatar scaling system.",
-  "unity": "2019.4",
+  "unity": "2022.3",
   "license": "BSL-1.0",
   "samples": [
     {
@@ -13,8 +13,7 @@
     }
   ],
   "vpmDependencies": {
-    "com.vrchat.worlds" : "^3.2.2",
-    "com.vrchat.udonsharp": "^1.1.9"
+    "com.vrchat.worlds" : "3.5.x"
   },
   "author": {
     "name": "Scarlet Crystal"
