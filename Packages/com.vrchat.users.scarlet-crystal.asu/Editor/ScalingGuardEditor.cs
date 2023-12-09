@@ -19,15 +19,6 @@ namespace AvatarScalingUtilities
         {
             startAction = new ActionSettings(serializedObject, "start");
             stopAction = new ActionSettings(serializedObject, "stop");
-
-            // Aug 12, 2023, Unity 2019.4.31f1 - Undo doesn't seem to properly invalidate
-            //  the serializedObject's different cache for enum fields.
-            Undo.undoRedoPerformed += serializedObject.SetIsDifferentCacheDirty;
-        }
-
-        void OnDisable()
-        {
-            Undo.undoRedoPerformed -= serializedObject.SetIsDifferentCacheDirty;
         }
 
         public override void OnInspectorGUI()
