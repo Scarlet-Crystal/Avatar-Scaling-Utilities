@@ -4,7 +4,7 @@ using VRC.SDKBase;
 using VRC.Udon;
 using VRC.SDK3.Components;
 
-namespace AvatarScalingUtilities
+namespace AvatarScalingUtilities.ExampleScene
 {
     [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class RespawningPickup : UdonSharpBehaviour
