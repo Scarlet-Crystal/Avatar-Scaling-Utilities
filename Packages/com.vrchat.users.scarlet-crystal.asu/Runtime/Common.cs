@@ -110,5 +110,10 @@ namespace AvatarScalingUtilities
 
             return newEyeHeight;
         }
+
+        public static void UpdateCurve(AnimationCurve newCurve, ref AnimationCurve target)
+        {
+            target = newCurve ?? AnimationCurve.Constant(-1, 0, 0);
+        }
     }
 }
