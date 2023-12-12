@@ -40,6 +40,10 @@ Adjusts the player's height when they pickup, drop, or use an object with the VR
 
 Adjusts the player's height when they collide with a particle.
 
+### Scaling Object
+
+Adjust the player's height when the attached GameObject's enabled state changes.
+
 ## Sample Assets
 
 This package contains an example scene that you can import into your project from the package manager window.
