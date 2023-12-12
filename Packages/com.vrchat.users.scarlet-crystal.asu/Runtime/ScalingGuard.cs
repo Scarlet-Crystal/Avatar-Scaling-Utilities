@@ -60,7 +60,7 @@ namespace AvatarScalingUtilities
 
         protected void StartGuardingScale(VRCPlayerApi localPlayer)
         {
-            if (localPlayer.isLocal)
+            if (!isGuarding && localPlayer.isLocal)
             {
                 isGuarding = true;
                 Common.ExecuteAction(localPlayer, startAction, startLimit, startA, startB, startCurve);
@@ -69,7 +69,7 @@ namespace AvatarScalingUtilities
 
         protected void StopGuardingScale(VRCPlayerApi localPlayer)
         {
-            if (localPlayer.isLocal)
+            if (isGuarding && localPlayer.isLocal)
             {
                 isGuarding = false;
                 Common.ExecuteAction(localPlayer, stopAction, stopLimit, stopA, stopB, stopCurve);
