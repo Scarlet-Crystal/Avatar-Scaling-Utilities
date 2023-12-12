@@ -9,12 +9,22 @@ namespace AvatarScalingUtilities
     {
         void OnEnable()
         {
-            StartGuardingScale(Networking.LocalPlayer);
+            VRCPlayerApi localPlayer = Networking.LocalPlayer;
+
+            if (Utilities.IsValid(localPlayer))
+            {
+                StartGuardingScale(Networking.LocalPlayer);
+            }
         }
-        
+
         void OnDisable()
         {
-            StopGuardingScale(Networking.LocalPlayer);
+            VRCPlayerApi localPlayer = Networking.LocalPlayer;
+            
+            if (Utilities.IsValid(localPlayer))
+            {
+                StopGuardingScale(Networking.LocalPlayer);
+            }
         }
     }
 }
