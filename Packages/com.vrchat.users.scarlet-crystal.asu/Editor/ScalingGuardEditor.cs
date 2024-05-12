@@ -23,6 +23,8 @@ namespace AvatarScalingUtilities
 
         public override void OnInspectorGUI()
         {
+            if (UdonSharpEditor.UdonSharpGUI.DrawDefaultUdonSharpBehaviourHeader(target)) return;
+
             serializedObject.Update();
 
 

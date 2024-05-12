@@ -24,48 +24,50 @@ namespace AvatarScalingUtilities
 
         public override void OnInspectorGUI()
         {
+            if (UdonSharpEditor.UdonSharpGUI.DrawDefaultUdonSharpBehaviourHeader(target)) return;
+
             serializedObject.Update();
 
             if (EditorGUILayout.DropdownButton(new GUIContent("Quick Setup"), FocusType.Keyboard))
             {
                 var popup = new ProportionalSetupPopup(
                     serializedObject, quickSetupRect.width,
-                    
+
                     new ProportionalSetupPopup.CurveProperty(
                         "walkCurve",
                         "Walk Speed",
                         2f, false,
                         "Walk speed for an avatar at the base eye height."
                     ),
-                    
+
                     new ProportionalSetupPopup.CurveProperty(
                         "strafeCurve",
                         "Strafe Speed",
                         2f, false,
                         "Strafe speed for an avatar at the base eye height."
                     ),
-                    
+
                     new ProportionalSetupPopup.CurveProperty(
                         "runCurve",
                         "Run Speed",
                         4f, false,
                         "Run speed for an avatar at the base eye height."
                     ),
-                    
+
                     new ProportionalSetupPopup.CurveProperty(
                         "jumpImpulseCurve",
                         "Jump Impulse",
                         3f, false,
                         "Jump impulse for an avatar at the base eye height."
                     ),
-                    
+
                     new ProportionalSetupPopup.CurveProperty(
                         "gravityCurve",
                         null,
                         1f, false,
                         null
                     ));
-                    
+
                 PopupWindow.Show(quickSetupRect, popup);
             }
 

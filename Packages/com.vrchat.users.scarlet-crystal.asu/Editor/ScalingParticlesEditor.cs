@@ -19,8 +19,10 @@ namespace AvatarScalingUtilities
 
         public override void OnInspectorGUI()
         {
+            if (UdonSharpEditor.UdonSharpGUI.DrawDefaultUdonSharpBehaviourHeader(target)) return;
+
             serializedObject.Update();
-            
+
             collisionAction.DisplayActionSettings(
                 "Collision Action",
                 "Action to perfom when a particle hits the player."
