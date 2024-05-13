@@ -1,6 +1,4 @@
-using UnityEngine;
 using UnityEditor;
-using VRC.SDK3.Components;
 
 namespace AvatarScalingUtilities
 {

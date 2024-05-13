@@ -1,7 +1,6 @@
 ﻿using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace AvatarScalingUtilities
 {
@@ -13,7 +12,7 @@ namespace AvatarScalingUtilities
         {
             StartGuardingScale(player);
         }
-        
+
         public override void OnStationExited(VRCPlayerApi player)
         {
             StopGuardingScale(player);

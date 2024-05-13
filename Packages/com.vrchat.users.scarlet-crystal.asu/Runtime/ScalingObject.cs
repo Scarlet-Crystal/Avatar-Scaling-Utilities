@@ -1,7 +1,4 @@
-﻿using UdonSharp;
-using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
+﻿using VRC.SDKBase;
 
 namespace AvatarScalingUtilities
 {
@@ -13,17 +10,17 @@ namespace AvatarScalingUtilities
 
             if (Utilities.IsValid(localPlayer))
             {
-                StartGuardingScale(Networking.LocalPlayer);
+                StartGuardingScale(localPlayer);
             }
         }
 
         void OnDisable()
         {
             VRCPlayerApi localPlayer = Networking.LocalPlayer;
-            
+
             if (Utilities.IsValid(localPlayer))
             {
-                StopGuardingScale(Networking.LocalPlayer);
+                StopGuardingScale(localPlayer);
             }
         }
     }

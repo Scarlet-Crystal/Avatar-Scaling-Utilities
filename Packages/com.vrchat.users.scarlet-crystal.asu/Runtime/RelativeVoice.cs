@@ -2,7 +2,6 @@
 using UnityEngine;
 using VRC.SDK3.Data;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace AvatarScalingUtilities
 {

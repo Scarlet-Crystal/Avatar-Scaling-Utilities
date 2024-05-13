@@ -7,7 +7,7 @@ namespace AvatarScalingUtilities
     {
         public static void ExecuteAction(VRCPlayerApi player, ScalingActions action, ScalingLimits limit, float minOrHeightOrMultiplier, float max, AnimationCurve curve)
         {
-            if(!Utilities.IsValid(player) || !player.isLocal)
+            if (!Utilities.IsValid(player) || !player.isLocal)
             {
                 return;
             }

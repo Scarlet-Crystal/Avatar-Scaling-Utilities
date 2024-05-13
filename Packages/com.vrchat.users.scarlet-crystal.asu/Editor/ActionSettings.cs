@@ -51,14 +51,14 @@ Reset - Fully unlocks manual scaling.";
                 lastSelected = action.enumValueIndex;
             }
 
-            displayField(action, label, tooltip + actionDesctiption);
+            DisplayField(action, label, tooltip + actionDesctiption);
             EditorGUI.indentLevel++;
 
             if (!action.hasMultipleDifferentValues)
             {
                 int selected = action.enumValueIndex;
 
-                var selectedAction = (ScalingActions)Enum.Parse(typeof(ScalingActions), action.enumNames[selected]);
+                var selectedAction = Enum.Parse<ScalingActions>(action.enumNames[selected]);
 
                 if (lastSelected != selected)
                 {
@@ -67,17 +67,21 @@ Reset - Fully unlocks manual scaling.";
                         case ScalingActions.SetEyeHeight:
                             a.floatValue = 1.6f;
                             break;
+
                         case ScalingActions.LimitEyeHeight:
                             a.floatValue = 0.1f;
                             b.floatValue = 100f;
                             break;
+
                         case ScalingActions.MultiplyPrefabHeight:
                             a.floatValue = 1f;
                             break;
+
                         case ScalingActions.RemapAndLimitEyeHeight:
                             a.floatValue = 0.1f;
                             b.floatValue = 100f;
                             break;
+
                         default:
                             break;
                     }
@@ -87,23 +91,28 @@ Reset - Fully unlocks manual scaling.";
                 {
                     case ScalingActions.None:
                         break;
+
                     case ScalingActions.SetEyeHeight:
-                        displayField(a, "Height", "Eye height to scale the player to.");
+                        DisplayField(a, "Height", "Eye height to scale the player to.");
                         break;
+
                     case ScalingActions.LimitEyeHeight:
-                        displayField(a, "Min Height", "The lowest eye height to allow.");
-                        displayField(b, "Max Height", "The heighest eye height to allow.");
+                        DisplayField(a, "Min Height", "The lowest eye height to allow.");
+                        DisplayField(b, "Max Height", "The heighest eye height to allow.");
                         break;
+
                     case ScalingActions.MultiplyPrefabHeight:
-                        displayField(a, "Multiplier", "The amount to multiply the avatar's original height with.");
+                        DisplayField(a, "Multiplier", "The amount to multiply the avatar's original height with.");
                         break;
+
                     case ScalingActions.RemapEyeHeight:
-                        displayField(curve, "Remap Curve", "Maps the current eye height to the desired eye height.");
+                        DisplayField(curve, "Remap Curve", "Maps the current eye height to the desired eye height.");
                         break;
+
                     case ScalingActions.RemapAndLimitEyeHeight:
-                        displayField(a, "Min Height", "The lowest eye height to allow.");
-                        displayField(b, "Max Height", "The heighest eye height to allow.");
-                        displayField(curve, "Remap Curve", "Maps the current eye height to the desired eye height.");
+                        DisplayField(a, "Min Height", "The lowest eye height to allow.");
+                        DisplayField(b, "Max Height", "The heighest eye height to allow.");
+                        DisplayField(curve, "Remap Curve", "Maps the current eye height to the desired eye height.");
                         break;
                 }
 
@@ -114,12 +123,12 @@ Reset - Fully unlocks manual scaling.";
                 }
             }
 
-            displayField(limit, "User Scaling Limits", limitDescrition);
+            DisplayField(limit, "User Scaling Limits", limitDescrition);
 
             EditorGUI.indentLevel--;
         }
 
-        private void displayField(SerializedProperty field, string label, string tooltip)
+        private void DisplayField(SerializedProperty field, string label, string tooltip)
         {
             EditorGUILayout.PropertyField(field, new GUIContent(label, tooltip));
         }
