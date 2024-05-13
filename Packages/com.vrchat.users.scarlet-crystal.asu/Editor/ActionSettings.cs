@@ -112,11 +112,6 @@ Reset - Fully unlocks manual scaling.";
                     a.floatValue = Mathf.Max(0, a.floatValue);
                     b.floatValue = Mathf.Max(a.floatValue + 0.1f, b.floatValue);
                 }
-
-                if (!curve.hasMultipleDifferentValues && curve.animationCurveValue.length == 0)
-                {
-                    curve.animationCurveValue = AnimationCurve.Linear(0, 0, 1000, 1000);
-                }
             }
 
             displayField(limit, "User Scaling Limits", limitDescrition);

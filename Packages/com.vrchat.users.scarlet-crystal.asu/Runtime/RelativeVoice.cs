@@ -124,5 +124,17 @@ namespace AvatarScalingUtilities
                 ReconfigureVoice(player);
             }
         }
+
+#if UNITY_EDITOR && !COMPILER_UDONSHARP
+
+        private void Reset()
+        {
+            voiceFarCurve = AnimationCurve.Constant(-1, 0, 25f);
+            voiceNearCurve = AnimationCurve.Constant(-1, 0, 0f);
+            VoiceVolumetricRadiusCurve = AnimationCurve.Constant(-1, 0, 0.005f);
+            voiceGainCurve = AnimationCurve.Constant(-1, 0, 15f);
+        }
+
+#endif
     }
 }

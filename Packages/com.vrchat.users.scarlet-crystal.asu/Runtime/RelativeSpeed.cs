@@ -75,5 +75,18 @@ namespace AvatarScalingUtilities
         {
             ReconfigureLocomotion();
         }
+
+#if UNITY_EDITOR && !COMPILER_UDONSHARP
+
+        private void Reset()
+        {
+            walkCurve = AnimationCurve.Constant(-1, 0, 2f);
+            strafeCurve = AnimationCurve.Constant(-1, 0, 2f);
+            runCurve = AnimationCurve.Constant(-1, 0, 4f);
+            jumpImpulseCurve = AnimationCurve.Constant(-1, 0, 3f);
+            gravityCurve = AnimationCurve.Constant(-1, 0, 1f);
+        }
+
+#endif
     }
 }

@@ -117,6 +117,18 @@ namespace AvatarScalingUtilities
             pickupState = PickupState.Released;
             Common.ExecuteAction(Networking.LocalPlayer, dropAction, dropLimit, dropA, dropB, dropCurve);
         }
+
+#if UNITY_EDITOR && !COMPILER_UDONSHARP
+
+        private void Reset()
+        {
+            grabCurve = Common.CreateDefaultRemapCurve();
+            useStartCurve = Common.CreateDefaultRemapCurve();
+            useEndCurve = Common.CreateDefaultRemapCurve();
+            dropCurve = Common.CreateDefaultRemapCurve();
+        }
+
+#endif
     }
 
     enum PickupState

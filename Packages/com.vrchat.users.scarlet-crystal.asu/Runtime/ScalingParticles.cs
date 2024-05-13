@@ -29,5 +29,14 @@ namespace AvatarScalingUtilities
                 Common.ExecuteAction(player, collisionAction, collisionLimit, collisionA, collisionB, collisionCurve);
             }
         }
+
+#if UNITY_EDITOR && !COMPILER_UDONSHARP
+
+        private void Reset()
+        {
+            collisionCurve = Common.CreateDefaultRemapCurve();
+        }
+
+#endif
     }
 }

@@ -115,5 +115,10 @@ namespace AvatarScalingUtilities
         {
             target = newCurve ?? AnimationCurve.Constant(-1, 0, 0);
         }
+
+        public static AnimationCurve CreateDefaultRemapCurve()
+        {
+            return AnimationCurve.Linear(0, 0, 100, 100);
+        }
     }
 }

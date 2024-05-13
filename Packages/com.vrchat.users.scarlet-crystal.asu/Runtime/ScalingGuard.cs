@@ -76,5 +76,14 @@ namespace AvatarScalingUtilities
             }
         }
 
+#if UNITY_EDITOR && !COMPILER_UDONSHARP
+
+        private void Reset()
+        {
+            startCurve = Common.CreateDefaultRemapCurve();
+            stopCurve = Common.CreateDefaultRemapCurve();
+        }
+
+#endif
     }
 }
